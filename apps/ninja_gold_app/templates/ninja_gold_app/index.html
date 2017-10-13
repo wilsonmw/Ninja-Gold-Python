@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ninja Gold</title>
+</head>
+<body>
+    <h1>Ninja Gold</h1>
+    <h3>Your Gold: {{request.session.gold}}</h3>
+    <div id='farm'>
+        <h1>Farm</h1>
+        <p>(Earns 10-20 gold)</p>
+        <form action='/process_money' method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="spot" value='farm'>
+            <input type="submit" value="Find Gold">
+        </form>
+    </div>
+    <div id='cave'>
+        <h1>Cave</h1>
+        <p>(Earns 5-10 gold)</p>
+        <form action='/process_money' method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="spot" value='cave'>
+            <input type="submit" value="Find Gold">
+        </form>
+    </div>
+    <div id='house'>
+        <h1>House</h1>
+        <p>(Earns 2-5 gold)</p>
+        <form action='/process_money' method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="spot" value='house'>
+            <input type="submit" value="Find Gold">
+        </form>
+    </div>
+    <div id='casino'>
+        <h1>Casino</h1>
+        <p>(Gamble your gold!)</p>
+        <form action='/process_money' method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="spot" value='casino'>
+            <input type="submit" value="Gamble Gold">
+        </form>
+    </div>
+    <form action='/reset' method='POST'>
+    {% csrf_token %}
+        <input type="submit" value="reset">
+    </form>
+    <p>Things you've done: </p>
+        {% for key in request.session.things_done %}
+        {{ key }}
+        {% endfor %}
+</body>
+</html>
